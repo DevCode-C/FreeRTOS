@@ -1,0 +1,28 @@
+{
+    "configurations": [
+        {
+            "name": "ARM none eabi GCC",
+            "includePath": [
+                "${workspaceFolder}/app",
+                "${workspaceFolder}/app/config",
+                "${workspaceFolder}/cmsisf0/registers",
+                "${workspaceFolder}/cmsisf0/core",
+                "${workspaceFolder}/half0/Inc",
+                "${workspaceFolder}/half0/Inc/Legacy",
+                "${workspaceFolder}/rtos/include",
+                "${workspaceFolder}/rtos/portable/ARM_CM0",
+                "${workspaceFolder}/sysview/Config",
+                "${workspaceFolder}/sysview/OS",
+                "${workspaceFolder}/sysview/SEGGER"
+            ],
+            "defines": [
+                "STM32F072xB",
+                "USE_HAL_DRIVER"
+            ],
+            "cStandard": "gnu11",
+            "compilerPath": "/usr/bin/arm-none-eabi-gcc",
+            "intelliSenseMode": "gcc-arm"
+        }
+    ],
+    "version": 4
+}

@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Cortex Debug",
+            "cwd": "${workspaceRoot}",
+            "executable": "./Build/temp.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "interface": "swd",
+            "debuggerArgs": [
+                "-iex","set auto-load safe-path /"
+            ],
+            "device": "STM32F070RB",
+            "serverpath": "/usr/bin/JLinkGDBServer",
+            "serverArgs": [
+                "-nogui"
+            ],
+            "armToolchainPath": "/usr/bin/",
+            "svdFile": "${workspaceRoot}/cmsisf0/svd/STM32F0x0.svd",
+            "runToMain": true
+        }
+    ]
+}
