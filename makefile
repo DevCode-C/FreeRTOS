@@ -57,23 +57,23 @@ $(TARGET) : $(addprefix Build/, $(TARGET).elf)
 	$(TOOLCHAIN)-size --format=berkeley $<
 
 Build/$(TARGET).elf : $(OBJS)
-	$(TOOLCHAIN)-gcc $(LFLAGS) -T $(LINKER) -o $@ $^
+	@$(TOOLCHAIN)-gcc $(LFLAGS) -T $(LINKER) -o $@ $^
 
 Build/obj/%.o : %.c
-	$(TOOLCHAIN)-gcc $(CFLAGS) $(INCS) $(SYMBOLS) -o $@ -c $<
+	@$(TOOLCHAIN)-gcc $(CFLAGS) $(INCS) $(SYMBOLS) -o $@ -c $<
 
 Build/obj/%.o : %.s
-	$(TOOLCHAIN)-as $(AFLAGS) -o $@ -c $<
+	@$(TOOLCHAIN)-as $(AFLAGS) -o $@ -c $<
 
 build:
-	mkdir -p Build/obj
+	@mkdir -p Build/obj
 
 #resolve dependencies
 -include $(DEPS)
 
 #borrar archivos generados
 clean :
-	rm -rf Build
+	@rm -rf Build
 
 #RTT viewver to viuasualize print functions output 
 terminal :
@@ -81,13 +81,13 @@ terminal :
 
 #Programar al tarjeta
 flash :
-	openocd -f interface/jlink.cfg -c "transport select swd" -f target/stm32f0x.cfg -c "program Build/$(TARGET).hex verify reset" -c shutdown
+	openocd -f interface/jlink.cfg -f target/stm32f0x.cfg -c "program Build/$(TARGET).hex verify reset" -c shutdown
 
 #Conectar OpenOCD con al Tarjeta
 open :
-	JLinkGDBServer -if SWD -device $(MCU) -nogui
+	JLinkGDBServer -if SWD -device stm32f070rb -nogui
 
 #Lanzar sesion de debug (es necesario primero Conectar la tarjeta con JLinkGDBServer)
 debug :
-	$(TOOLSET)-gdb Build/$(PROJECT).elf -iex "set auto-load safe-path /" -iex "target remote localhost:2331"
+	$(TOOLCHAIN)-gdb Build/$(TARGET).elf -iex "set auto-load safe-path /"
 

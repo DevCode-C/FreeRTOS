@@ -6,7 +6,10 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
+
+
 static void vTask( void *parameters );
+const uint8_t numeros[5] = {1,2,3,4,5};
 
 /**------------------------------------------------------------------------------------------------
 Brief.- Punto de entrada del programa
@@ -14,8 +17,15 @@ Brief.- Punto de entrada del programa
 int main( void )
 {
     vSetupHardware( );
+    uint8_t test = 0;
+    for (size_t i = 0; i < 5; i++)
+    {
+        xTaskCreate(vTask,"tareas",128U,(void*)&numeros[i],1U,NULL);
+        test++;
+    }
     
-    xTaskCreate( vTask, "Task", 128u, NULL, 1u, NULL );
+    // xTaskCreate( vTask, "Task", 128u, NULL, 1u, NULL );
+    // xTaskCreate( vTask2, "Task2", 128u, NULL, 1u, NULL );    
     
     vTaskStartScheduler( );
     vPrintString( "ERROR" );
@@ -24,10 +34,13 @@ int main( void )
 
 static void vTask( void *parameters )
 {
+    char* numero = parameters;
+    char letra = *numero;
+    letra = letra + '0';
     for( ; ; )
     {
-        vPrintString( "Hola mundo" );
-        vDelay( 1000u );
+        vPrintString( &letra );
+        vDelay( 2000u );
     }
 }
 

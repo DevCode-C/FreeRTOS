@@ -7,13 +7,13 @@ set width 0
 
 #---connect and load program
 #target remote localhost:3333 #openocd
-#target remote localhost:2331 #jlink
+target remote localhost:2331 
 #mon arm semihosting enable #openocd
-#mon semihosting enable #jlink
-#mon reset
-#load
-#break main
-#continue
+mon semihosting enable 
+mon reset
+load
+break main
+continue
 
 
 define reset
